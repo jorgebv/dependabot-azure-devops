@@ -459,7 +459,11 @@ dependencies.select(&:top_level?).each do |dep|
           email: "noreply@github.com",
           name: "dependabot[bot]"
         },
-        commit_message_options: $update_config.commit_message_options.to_h,
+        commit_message_options: {
+          "prefix" => "chore",
+          "prefix-development" => "chore",
+          "include" => "scope"
+        },
         custom_labels: $options[:custom_labels],
         milestone: $options[:milestone],
         branch_name_separator: $options[:branch_name_separator],
