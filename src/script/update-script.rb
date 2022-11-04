@@ -11,6 +11,7 @@ require "dependabot/file_updaters"
 require "dependabot/pull_request_creator"
 require "dependabot/pull_request_updater"
 require "dependabot/config/file_fetcher"
+require "dependabot/config/update_config"
 require "dependabot/omnibus"
 
 require_relative "azure_helpers"
@@ -448,6 +449,12 @@ dependencies.select(&:top_level?).each do |dep|
       ########################################
       # Create a pull request for the update #
       ########################################
+      chore_commit_message_options = Dependabot::Config::UpdateConfig::CommitMessageOptions.new(
+        prefix: "chore",
+        prefix_development: "chore",
+        include: "scope"
+      )
+
       pr_creator = Dependabot::PullRequestCreator.new(
         source: $source,
         base_commit: commit,
@@ -459,11 +466,7 @@ dependencies.select(&:top_level?).each do |dep|
           email: "noreply@github.com",
           name: "dependabot[bot]"
         },
-        commit_message_options: {
-          "prefix" => "chore",
-          "prefix-development" => "chore",
-          "include" => "scope"
-        },
+        commit_message_options: chore_commit_message_options.to_h,
         custom_labels: $options[:custom_labels],
         milestone: $options[:milestone],
         branch_name_separator: $options[:branch_name_separator],
