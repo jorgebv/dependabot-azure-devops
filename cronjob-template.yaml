@@ -36,21 +36,12 @@ spec:
           activeDeadlineSeconds: 3600
           containers:
           - name: dependabot
-            image: 'tingle/dependabot-azure-devops:0.8.4' # Use a specific tag otherwise the image may be cached already
+            image: 'tingle/dependabot-azure-devops:0.10' # Use a specific tag otherwise the image may be cached already
             resources: {} # decide based on your usage
             env:
             - name: GITHUB_ACCESS_TOKEN
               value: '{{github_access_token}}'
-            - name: AZURE_HOSTNAME
-              value: '{{azure_hostname}}'
-            - name: AZURE_ACCESS_TOKEN
-              value: '{{azure_access_token}}'
-            - name: AZURE_ORGANIZATION
-              value: '{{azure_organization}}'
-            - name: AZURE_PROJECT
-              value: '{{azure_project}}'
-            - name: AZURE_REPOSITORY
-              value: '{{azure_repository}}'
+
             - name: DEPENDABOT_PACKAGE_MANAGER
               value: '{{dependabot_package_manager}}'
             - name: DEPENDABOT_DIRECTORY
@@ -65,11 +56,18 @@ spec:
               value: '{{dependabot_extra_credentials}}'
             - name: DEPENDABOT_ALLOW_CONDITIONS
               value: '{{dependabot_allow_conditions}}'
-            - name: DEPENDABOT_IGNORE_CONDITIONS
-              value: '{{dependabot_ignore_conditions}}'
-            - name: DEPENDABOT_LABELS
-              value: '{{dependabot_labels}}'
             - name: DEPENDABOT_BRANCH_NAME_SEPARATOR
               value: '{{dependabot_branch_name_separator}}'
             - name: DEPENDABOT_FAIL_ON_EXCEPTION
               value: '{{dependabot_fail_on_exception}}'
+
+            - name: AZURE_HOSTNAME
+              value: '{{azure_hostname}}'
+            - name: AZURE_ACCESS_TOKEN
+              value: '{{azure_access_token}}'
+            - name: AZURE_ORGANIZATION
+              value: '{{azure_organization}}'
+            - name: AZURE_PROJECT
+              value: '{{azure_project}}'
+            - name: AZURE_REPOSITORY
+              value: '{{azure_repository}}'
